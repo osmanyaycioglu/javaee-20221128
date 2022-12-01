@@ -1,0 +1,7 @@
+osman,yaycıoğlu,200,100
+ali,alaz,180,120
+ayşe,ulak,170,60
+fatma,yobaz,180,60
+mehmet,tala,198a,110
+mehmet,tala2,198
+mehmet,tala3,198,110,udhds,euwhe
