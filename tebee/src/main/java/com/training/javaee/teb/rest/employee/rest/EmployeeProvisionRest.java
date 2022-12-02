@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
 import com.training.javaee.teb.rest.employee.models.Employee;
+import com.training.javaee.teb.rest.employee.models.mappings.IEmployeeMappings;
 import com.training.javaee.teb.services.EmployeeProvisionService;
 
 @Path("/api/v1/employee/provision")
@@ -24,8 +25,8 @@ public class EmployeeProvisionRest {
         if (employeeParam.getName() == null) {
             throw new IllegalArgumentException("name null olamaz");
         }
+        this.employeeProvisionService.add(IEmployeeMappings.employeeMappings.toEmployeeDto(employeeParam));
         Objects.requireNonNull(employeeParam.getName());
-        this.employeeProvisionService.add(null);
         return "OK";
     }
 

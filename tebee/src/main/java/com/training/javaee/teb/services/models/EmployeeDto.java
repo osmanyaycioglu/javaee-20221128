@@ -1,10 +1,14 @@
 package com.training.javaee.teb.services.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "employee")
 public class EmployeeDto {
 
     @Id
@@ -14,6 +18,7 @@ public class EmployeeDto {
     private String          surname;
     private Integer         age;
     private Integer         height;
+    @Enumerated(EnumType.STRING)
     private EEmployeeStatus employeeStatus;
     private String          username;
     private String          password;
