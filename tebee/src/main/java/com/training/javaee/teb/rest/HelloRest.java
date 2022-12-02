@@ -1,6 +1,9 @@
 package com.training.javaee.teb.rest;
 
-import javax.enterprise.context.RequestScoped;
+import java.io.Serializable;
+
+import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -13,10 +16,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import com.training.javaee.teb.ejb.MyStatefulEJB;
+import com.training.javaee.teb.ejb.MyStatelessEJB;
 import com.training.javaee.teb.rest.employee.models.Employee;
 
 
-@RequestScoped
+@ApplicationScoped
 // Mapping 1 (optional) ---> Use @Path
 @Path("/hello")
 @Produces({
@@ -25,7 +30,44 @@ import com.training.javaee.teb.rest.employee.models.Employee;
 @Consumes({
             "application/json"
 })
-public class HelloRest {
+public class HelloRest implements Serializable {
+
+    @EJB
+    private MyStatelessEJB myStatelessEJB;
+
+    @EJB
+    private MyStatefulEJB  myStatefulEJB;
+
+
+    public HelloRest() {
+        System.out.println("HelloRest Yaratıldı !!!!!!!!!!!!");
+    }
+
+    @Path("/show/stateless")
+    @GET
+    @Produces({
+                "text/plain"
+    })
+    public String showCount() {
+        this.myStatelessEJB.doFirst(10);
+        this.myStatelessEJB.doLast(1);
+        return "OK";
+    }
+
+    @Path("/show/stateful")
+    @GET
+    @Produces({
+                "text/plain"
+    })
+    public String showCountStateful() {
+        this.myStatefulEJB.doFirst(10);
+        this.myStatefulEJB.doLast(1);
+        this.myStatefulEJB.doLast(1);
+        this.myStatefulEJB.doLast(1);
+        this.myStatefulEJB.doLast(1);
+        return "Counter : " + this.myStatefulEJB.getCounter();
+    }
+
 
     // Mapping 2 (mandatory) ---> @Path (optional) ve use Http method annotations
     @Path("/greet1")
