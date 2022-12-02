@@ -2,6 +2,7 @@ package com.training.javaee.teb.rest.employee.rest;
 
 import java.util.Objects;
 
+import javax.ejb.EJB;
 import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,9 +10,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
 import com.training.javaee.teb.rest.employee.models.Employee;
+import com.training.javaee.teb.services.EmployeeProvisionService;
 
 @Path("/api/v1/employee/provision")
 public class EmployeeProvisionRest {
+
+    @EJB
+    private EmployeeProvisionService employeeProvisionService;
 
     @Path("/add")
     @POST
@@ -20,7 +25,7 @@ public class EmployeeProvisionRest {
             throw new IllegalArgumentException("name null olamaz");
         }
         Objects.requireNonNull(employeeParam.getName());
-        // Database e yaz
+        this.employeeProvisionService.add(null);
         return "OK";
     }
 
